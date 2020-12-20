@@ -8,3 +8,7 @@
 - `yarn build`, transpiles the code.
 - `yarn lint`, lints the code.
 - `yarn test:unit`, runs unit tests.
+
+### Dotenv
+
+Edit the `.env` file according to your environment.
