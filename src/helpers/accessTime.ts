@@ -36,7 +36,7 @@ class TimeAccessHandler {
       return this.increaseTime(currentDate, addedTime);
     }
 
-    return this.increaseTime(currentDate, addedTime);
+    return this.increaseTime(dateToExtend, addedTime);
   }
 }
 

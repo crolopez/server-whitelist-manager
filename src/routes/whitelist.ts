@@ -42,9 +42,12 @@ router.post('/', async (req, res) : Promise<any> => {
 
 router.put('/:id', async (req, res) : Promise<any> => {
   let whitelistEntry = new Whitelist(req.body)
-  if (req.body.access_time !== undefined) {
+  if (req.body.access_time !== undefined
+      // We have the date on DB. Should we use the one the customer sends?
+      && req.body.access_expiry_date !== undefined) {
+    // Is this server-side work?
     whitelistEntry.access_expiry_date = TimeAccessHandler.
-    getUpdatedExpiryDate(whitelistEntry.access_expiry_date, req.body.access_time)
+      getUpdatedExpiryDate(whitelistEntry.access_expiry_date, req.body.access_time)
   }
 
   try {
