@@ -11,7 +11,14 @@ const APIMessage = {
   },
   WHITELIST_ERROR: {
     ENTRY_NOT_SAVED: 'Whitelist entry was not saved.',
+    ENTRY_NOT_UPDATED: 'Whitelist entry was not updated.',
   },
 } as const
 
-export { MongoErrorMessage, APIMessage }
+const ServerMessage = {
+  ERROR: {
+    INTERNAL_SERVER_ERROR: 500
+  }
+} as const
+
+export { MongoErrorMessage, APIMessage, ServerMessage }
