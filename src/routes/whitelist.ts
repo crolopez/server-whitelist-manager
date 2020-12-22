@@ -13,8 +13,15 @@ router.get('/', async (req, res) : Promise<any> => {
 })
 
 router.get('/:id', async (req, res) : Promise<any> => {
-  const whitelistEntry = await Whitelist.findById(req.params.id)
-  return res.json(whitelistEntry)
+  try {
+    const whitelistEntry = await Whitelist.findById(req.params.id)
+    res.json(whitelistEntry)
+  } catch (error) {
+    return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
+      message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_FOUND,
+      reason: error,
+    })
+  }
 })
 
 router.post('/', async (req, res) : Promise<any> => {
@@ -24,7 +31,7 @@ router.post('/', async (req, res) : Promise<any> => {
   try {
     await Whitelist.init()
     await Whitelist.create(whitelistEntry)
-    return res.json({ message:  APIMessage.WHITELIST.ENTRY_SAVED})
+    return res.json({ message:  APIMessage.WHITELIST_SUCCESS.ENTRY_SAVED})
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
       message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_SAVED,
@@ -42,7 +49,7 @@ router.put('/:id', async (req, res) : Promise<any> => {
 
   try {
     await Whitelist.findByIdAndUpdate(req.params.id, whitelistEntry )
-    return res.json({ message:  APIMessage.WHITELIST.ENTRY_UPDATED})
+    return res.json({ message:  APIMessage.WHITELIST_SUCCESS.ENTRY_UPDATED})
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
       message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_UPDATED,
@@ -52,8 +59,15 @@ router.put('/:id', async (req, res) : Promise<any> => {
 })
 
 router.delete('/:id', async (req, res) : Promise<any> => {
-  await Whitelist.findByIdAndRemove(req.params.id, req.body)
-  return res.json({ message: APIMessage.WHITELIST.ENTRY_REMOVED })
+  try {
+    await Whitelist.findByIdAndRemove(req.params.id, req.body)
+    return res.json({ message: APIMessage.WHITELIST_SUCCESS.ENTRY_REMOVED })
+  } catch (error) {
+    return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
+      message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_REMOVED,
+      reason: error,
+    })
+  }
 })
 
 export default router
