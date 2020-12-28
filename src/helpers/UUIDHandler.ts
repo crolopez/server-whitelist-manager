@@ -10,7 +10,7 @@ const REQUEST_HEADERS = {
 }
 
 // FIXME: revisit this class
-class UUIDHandler {
+export default class UUIDHandler {
   static async getOfflineUUID(user: string): Promise<string> {
     const httpClient = new HttpClient()
     const { offlinesplitteduuid } = await httpClient.get<ApiConvertorResponse>({
@@ -21,5 +21,3 @@ class UUIDHandler {
     return offlinesplitteduuid
   }
 }
-
-export { UUIDHandler }

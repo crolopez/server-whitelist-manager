@@ -26,3 +26,5 @@ export default class HttpClient {
     return data
   }
 }
+
+export default new HttpClient()

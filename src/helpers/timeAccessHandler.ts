@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-class TimeAccessHandler {
+export default class TimeAccessHandler {
   static increaseTime(moment: moment.Moment, addedTime: string): Date {
     const increment = parseInt(addedTime, 10)
 
@@ -39,5 +39,3 @@ class TimeAccessHandler {
     return this.increaseTime(dateToExtend, addedTime)
   }
 }
-
-export { TimeAccessHandler }
