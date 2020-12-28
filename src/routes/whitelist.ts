@@ -1,15 +1,23 @@
 import express from 'express'
 import Whitelist from '../models/Whitelist'
 import { APIMessage, ServerMessage } from '../helpers/messages'
-import { TimeAccessHandler } from '../helpers/accessTime'
+import { TimeAccessHandler } from '../helpers/timeAccessHandler'
+import { UUIDHandler } from '../helpers/UUIDHandler'
 
 export const WHITELIST_API_PREFIX = '/api/whitelist'
 
 const router = express.Router()
 
 router.get('/', async (req, res) : Promise<any> => {
-  const whitelistEntry = await Whitelist.find()
-  return res.json(whitelistEntry)
+  try {
+    const whitelistEntry = await Whitelist.find()
+    return res.json(whitelistEntry)
+  } catch (error) {
+    return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
+      message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_FOUND,
+      reason: error,
+    })
+  }
 })
 
 router.get('/:id', async (req, res) : Promise<any> => {
@@ -29,6 +37,10 @@ router.post('/', async (req, res) : Promise<any> => {
   whitelistEntry.access_expiry_date = TimeAccessHandler.getNewExpiryDate(req.body.access_time)
 
   try {
+    await UUIDHandler.getOfflineUUID(req.body.game_user)
+    .then(res => {
+      whitelistEntry.uuid = res;
+    })
     await Whitelist.init()
     await Whitelist.create(whitelistEntry)
     return res.json({ message:  APIMessage.WHITELIST_SUCCESS.ENTRY_SAVED})
@@ -51,6 +63,13 @@ router.put('/:id', async (req, res) : Promise<any> => {
   }
 
   try {
+    if (req.body.game_user !== undefined) {
+      await UUIDHandler.getOfflineUUID(req.body.game_user)
+      .then(res => {
+        whitelistEntry.uuid = res;
+      })
+    }
+
     await Whitelist.findByIdAndUpdate(req.params.id, whitelistEntry )
     return res.json({ message:  APIMessage.WHITELIST_SUCCESS.ENTRY_UPDATED})
   } catch (error) {
