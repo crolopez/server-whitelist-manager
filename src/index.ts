@@ -1,5 +1,6 @@
 import { config } from 'dotenv'
 import express from 'express'
+import compression from 'compression'
 import morgan from 'morgan'
 import { connectMongo } from './helpers/mongo'
 import { initCronJob } from './helpers/cronJob'
@@ -21,6 +22,7 @@ app.set('port', process.env.PORT)
 // Middlewares
 app.use(morgan('dev'))
 app.use(express.json())
+app.use(compression())
 
 // Routes
 app.use(WHITELIST_API_PREFIX, whitelistRoutes)
