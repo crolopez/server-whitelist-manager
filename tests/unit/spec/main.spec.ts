@@ -1,11 +1,12 @@
 import nock from 'nock'
-import { UUIDHandler } from '../../../src/helpers/UUIDHandler'
+import UUIDHandler from '../../../src/helpers/UUIDHandler'
 import HttpClient from '../../../src/helpers/HttpClient'
 
 describe('Whitelist manager', () => {
   beforeEach(() => {
     nock.disableNetConnect()
   })
+
   describe('Class UUIDHandler', () => {
     test('#getOfflineUUID', async () => {
       // data
@@ -30,10 +31,8 @@ describe('Whitelist manager', () => {
   })
 
   describe('Class HttpClient', () => {
-    let httpClientInstance: HttpClient
     beforeEach(() => {
       nock.disableNetConnect()
-      httpClientInstance = new HttpClient()
     })
     test('#get', async () => {
       // data
@@ -46,7 +45,7 @@ describe('Whitelist manager', () => {
         .reply(200, expectedResponse)
 
       // call the method
-      const result = await httpClientInstance.get<string>({
+      const result = await HttpClient.get<string>({
         url,
         headers: {},
       })
@@ -66,7 +65,7 @@ describe('Whitelist manager', () => {
         .reply(200, expectedResponse)
 
       // call the method
-      const result = await httpClientInstance.put<string>({
+      const result = await HttpClient.put<string>({
         url,
         headers: {},
       })
