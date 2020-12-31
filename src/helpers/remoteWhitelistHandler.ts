@@ -2,7 +2,7 @@ import { IRemoteWhitelistHandler } from './interfaces/IRemoteWhitelistHandler'
 
 class RemoteWhitelistHandler implements IRemoteWhitelistHandler {
   removeGameTags(tagList: string[]): Promise<any> {
-    throw new Error("Method not implemented.")
+    throw new Error(`Method not implemented. Receiving: ${tagList}`)
   }
 }
 
