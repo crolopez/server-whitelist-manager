@@ -1,51 +1,28 @@
-import axios, { AxiosRequestConfig/*, AxiosError, AxiosResponse */ } from 'axios'
-import { IHttpClient } from './interfaces/IHttpClient'
-import { IHttpClientRequestParameters } from './interfaces/IHttpClientRequestParameters'
+import axios from 'axios'
+import { HttpClientRequestParameters } from './interfaces/HttpClientRequestParameters'
 
-export class HttpClient implements IHttpClient {
-  get<T>(parameters: IHttpClientRequestParameters<T>): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
-      const { url, token } = parameters
-
-      const options: AxiosRequestConfig = {
-        headers: {}
-      }
-
-      if (token !== undefined) {
-        options.headers.RequestVerificationToken = token
-      }
-
-      axios
-        .get(url, options)
-        .then((response: any) => {
-          resolve(response.data as T)
-        })
-        .catch((response: any) => {
-          reject(response)
-        })
-    })
+export class HttpClient {
+  static buildHeaders (token: any): { headers: { RequestVerificationToken?: string } } {
+    return {
+      headers: {
+        ...token ? { RequestVerificationToken: token } : undefined,
+      },
+    }
   }
 
-  post<T>(parameters: IHttpClientRequestParameters<T>): Promise<T> {
-    return new Promise<T>((resolve, reject) => {
-      const { url, payload, token } = parameters
+  async get<T>(parameters: HttpClientRequestParameters): Promise<T> {
+    const { url, token } = parameters
 
-      const options: AxiosRequestConfig = {
-        headers: {}
-      }
+    const { data } = await axios.get(url, { ...HttpClient.buildHeaders(token) })
 
-      if (token !== '') {
-        options.headers.RequestVerificationToken = token
-      }
+    return data
+  }
 
-      axios
-        .post(url, payload, options)
-        .then((response: any) => {
-          resolve(response.data as T)
-        })
-        .catch((response: any) => {
-          reject(response)
-        })
-    })
+  async post<T>(parameters: HttpClientRequestParameters): Promise<T> {
+    const { url, payload, token } = parameters
+
+    const { data } = await axios.put(url, payload, { ...HttpClient.buildHeaders(token) })
+
+    return data
   }
 }

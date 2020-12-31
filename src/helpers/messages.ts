@@ -20,8 +20,8 @@ const APIMessage = {
 
 const ServerMessage = {
   ERROR: {
-    INTERNAL_SERVER_ERROR: 500
-  }
+    INTERNAL_SERVER_ERROR: 500,
+  },
 } as const
 
 export { MongoErrorMessage, APIMessage, ServerMessage }
