@@ -10,7 +10,7 @@ export default class HttpClient {
     }
   }
 
-  async get<T>(parameters: HttpClientRequestParameters): Promise<T> {
+  static async get<T>(parameters: HttpClientRequestParameters): Promise<T> {
     const { url, token } = parameters
 
     const { data } = await axios.get(url, { ...HttpClient.buildHeaders(token) })
@@ -18,7 +18,7 @@ export default class HttpClient {
     return data
   }
 
-  async put<T>(parameters: HttpClientRequestParameters): Promise<T> {
+  static async put<T>(parameters: HttpClientRequestParameters): Promise<T> {
     const { url, payload, token } = parameters
 
     const { data } = await axios.put(url, payload, { ...HttpClient.buildHeaders(token) })
@@ -26,5 +26,3 @@ export default class HttpClient {
     return data
   }
 }
-
-export default new HttpClient()

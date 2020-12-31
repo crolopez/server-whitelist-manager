@@ -1,9 +1,9 @@
 import { CronJob } from 'cron'
-import WhitelistHandler  from './WhitelistHandler'
+import { whitelistHandler } from './whitelistHandler'
 
 function scheduleAccessLossCheck(): void {
   var job = new CronJob(`*/${process.env.EXPIRATION_CHECK_PERIOD} * * * *`, function() {
-    WhitelistHandler.removeAccessToExpiredUsers()
+    whitelistHandler.removeAccessToExpiredUsers()
   }, null, true, 'America/Los_Angeles');
   job.start()
 }

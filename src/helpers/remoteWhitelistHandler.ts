@@ -6,4 +6,5 @@ class RemoteWhitelistHandler implements IRemoteWhitelistHandler {
   }
 }
 
-export default new RemoteWhitelistHandler()
+const remoteWhitelistHandler = new RemoteWhitelistHandler()
+export { remoteWhitelistHandler }

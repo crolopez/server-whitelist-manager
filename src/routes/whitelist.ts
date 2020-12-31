@@ -1,7 +1,7 @@
 import express from 'express'
 import Whitelist from '../models/Whitelist'
 import { APIMessage, ServerMessage } from '../helpers/messages'
-import TimeAccessHandler from '../helpers/timeAccessHandler'
+import TimeAccessHandler from '../helpers/TimeAccessHandler'
 import UUIDHandler from '../helpers/UUIDHandler'
 
 export const WHITELIST_API_PREFIX = '/api/whitelist'
