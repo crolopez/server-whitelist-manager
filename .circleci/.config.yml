@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  # FIXME: cache deps, improve this basic workflow..
+  install_build_and_test:
+    docker:
+      - image: circleci/node:erbium-stretch
+
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build
+      - run: yarn test:unit:ci
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - install_build_and_test
