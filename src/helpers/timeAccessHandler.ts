@@ -1,26 +1,26 @@
 import moment from 'moment'
 
 export default class TimeAccessHandler {
-  static increaseTime(moment: moment.Moment, addedTime: string): Date {
+  static increaseTime(date: moment.Moment, addedTime: string): Date {
     const increment = parseInt(addedTime, 10)
 
     if (addedTime.includes('s')) {
-      moment.add(increment, 'seconds')
+      date.add(increment, 'seconds')
     } else if (addedTime.includes('m')) {
-      moment.add(increment, 'minutes')
+      date.add(increment, 'minutes')
     } else if (addedTime.includes('h')) {
-      moment.add(increment, 'hours')
+      date.add(increment, 'hours')
     } else if (addedTime.includes('d')) {
-      moment.add(increment, 'days')
+      date.add(increment, 'days')
     } else if (addedTime.includes('w')) {
-      moment.add(increment, 'weeks')
+      date.add(increment, 'weeks')
     } else if (addedTime.includes('M')) {
-      moment.add(increment, 'months')
+      date.add(increment, 'months')
     } else {
-      moment.add(increment, 'seconds')
+      date.add(increment, 'seconds')
     }
 
-    return moment.toDate()
+    return date.toDate()
   }
 
   static getNewExpiryDate(accesTime: string): Date {
