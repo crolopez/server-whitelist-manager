@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { HttpClientRequestParameters } from './interfaces/HttpClientRequestParameters'
 
-export class HttpClient {
+export default class HttpClient {
   static buildHeaders (token: any): { headers: { RequestVerificationToken?: string } } {
     return {
       headers: {
@@ -18,7 +18,7 @@ export class HttpClient {
     return data
   }
 
-  async post<T>(parameters: HttpClientRequestParameters): Promise<T> {
+  async put<T>(parameters: HttpClientRequestParameters): Promise<T> {
     const { url, payload, token } = parameters
 
     const { data } = await axios.put(url, payload, { ...HttpClient.buildHeaders(token) })

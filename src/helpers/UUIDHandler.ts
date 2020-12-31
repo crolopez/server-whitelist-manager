@@ -1,5 +1,5 @@
 import { ApiConvertorResponse } from './interfaces/ApiConvertorResponse'
-import { HttpClient } from './HttpClient'
+import HttpClient from './HttpClient'
 
 const API_ENDPOINT = 'http://tools.glowingmines.eu/convertor/nick'
 const REQUEST_HEADERS = {
