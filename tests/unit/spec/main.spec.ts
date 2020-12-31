@@ -1,6 +1,29 @@
+import nock from 'nock'
+import { UUIDHandler } from '../../../src/helpers/UUIDHandler'
 describe('Whitelist manager', () => {
-  test('Example test', () => {
-    console.info('Please test here!')
-    expect(1).toBe(1)
+  beforeEach(() => {
+    nock.disableNetConnect()
+  })
+  describe('Class UUIDHandler', () => {
+    test('#getOfflineUUID', async () => {
+      // data
+      const username = 'crolopez'
+      const expectedResponse = {
+        nick: username,
+        offlineuuid: 'fakeofflineuuid',
+        offlinesplitteduuid: 'fakeofflinesplitteduuid',
+      }
+
+      // mock request
+      nock('http://tools.glowingmines.eu')
+        .get(`/convertor/nick/${username}`)
+        .reply(200, expectedResponse)
+
+      // call the method
+      const result = await UUIDHandler.getOfflineUUID(username)
+
+      // assert the result
+      expect(result).toBe(expectedResponse.offlinesplitteduuid)
+    })
   })
 })

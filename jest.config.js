@@ -4,6 +4,8 @@ module.exports = {
       'tsConfig': 'tsconfig.json',
     },
   },
+  
+  testEnvironment: 'node',
 
   moduleFileExtensions: [
     'ts',
