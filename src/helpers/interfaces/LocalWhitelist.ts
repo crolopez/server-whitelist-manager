@@ -1,3 +1,3 @@
-export interface ILocalWhitelistHandler {
+export interface LocalWhitelist {
   getExpiredGameTags(): Promise<string[]>
 }

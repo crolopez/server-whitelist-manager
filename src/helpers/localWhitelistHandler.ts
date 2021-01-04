@@ -1,8 +1,8 @@
-import { ILocalWhitelistHandler } from './interfaces/ILocalWhitelistHandler'
+import { LocalWhitelist } from './interfaces/LocalWhitelist'
 import Whitelist from '../models/Whitelist'
 import moment from 'moment'
 
-class LocalWhitelistHandler implements ILocalWhitelistHandler {
+class LocalWhitelistHandler implements LocalWhitelist {
   async getExpiredGameTags(): Promise<string[]|any>  {
     Whitelist.find({ access_expiry_date: { $lt: moment().toDate() } }).exec()
       .then(whitelistEntries => {
