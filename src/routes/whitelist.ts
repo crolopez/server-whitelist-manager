@@ -10,8 +10,8 @@ const router = express.Router()
 
 router.get('/', async (req, res): Promise<any> => {
   try {
-    const whitelistEntry = await Whitelist.find()
-    return res.json(whitelistEntry)
+    const whitelistEntries = await Whitelist.find()
+    return res.json(whitelistEntries)
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
       message: APIMessage.WHITELIST_ERROR.ENTRY_NOT_FOUND,

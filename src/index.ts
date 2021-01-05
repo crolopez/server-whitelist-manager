@@ -2,6 +2,7 @@ import { config } from 'dotenv'
 import express from 'express'
 import compression from 'compression'
 import morgan from 'morgan'
+import { initCronJob } from './helpers/cronJob'
 import { connectMongo } from './helpers/mongo'
 import whitelistRoutes, { WHITELIST_API_PREFIX } from './routes/whitelist'
 
@@ -30,3 +31,6 @@ app.use(WHITELIST_API_PREFIX, whitelistRoutes)
 app.listen(app.get('port'), () => {
   console.log(`Server listening on port ${app.get('port')}.`)
 })
+
+// Server cronjob
+initCronJob()
