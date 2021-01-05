@@ -1,9 +1,9 @@
 import { CronJob } from 'cron'
-import { localWhitelistHandler } from './localWhitelistHandler'
+import WhitelistBackupHandler from './WhitelistBackupHandler'
 
 function whitelistBackupScheduler(): void {
   const job = new CronJob(`*/${process.env.BACKUP_PERIOD} * * * *`, function() {
-    localWhitelistHandler.backupWhiteList()
+    WhitelistBackupHandler.backupWhiteList()
   }, null, true, 'America/Los_Angeles')
   job.start()
 }
