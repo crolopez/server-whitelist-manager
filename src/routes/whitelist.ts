@@ -3,6 +3,7 @@ import Whitelist from '../models/Whitelist'
 import { APIMessage, ServerMessage } from '../helpers/messages'
 import TimeAccessHandler from '../helpers/TimeAccessHandler'
 import UUIDHandler from '../helpers/UUIDHandler'
+import { localWhitelistHandler } from '../helpers/localWhitelistHandler'
 
 export const WHITELIST_API_PREFIX = '/api/whitelist'
 
@@ -10,7 +11,7 @@ const router = express.Router()
 
 router.get('/', async (req, res): Promise<any> => {
   try {
-    const whitelistEntries = await Whitelist.find()
+    const whitelistEntries = await localWhitelistHandler.getWhitelist(req.query.format)
     return res.json(whitelistEntries)
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
@@ -22,7 +23,7 @@ router.get('/', async (req, res): Promise<any> => {
 
 router.get('/:id', async (req, res): Promise<any> => {
   try {
-    const whitelistEntry = await Whitelist.findById(req.params.id)
+    const whitelistEntry = await localWhitelistHandler.getWhitelistEntry(req.params.id, req.query.format)
     return res.json(whitelistEntry)
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
