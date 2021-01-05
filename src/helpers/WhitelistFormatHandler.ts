@@ -1,5 +1,5 @@
 import { UserDoc } from '../types/UserDoc'
-import { WhitelistNode } from '../types/WhitelistNode'
+import { RemoteWhitelistEntry } from '../types/RemoteWhitelistEntry'
 
 const EntryFormat = {
   SERVER: 'server',
@@ -13,21 +13,21 @@ export default class WhitelistFormatHandler {
     }
   }
 
-  static applyEntryFormat(whitelistEntry: UserDoc, format: any): WhitelistNode|UserDoc {
+  static applyEntryFormat(whitelistEntry: UserDoc, format: any): RemoteWhitelistEntry|UserDoc {
     if (format === EntryFormat.SERVER) {
       return {
         uuid: whitelistEntry['uuid'] as unknown as string,
         name: whitelistEntry['game_tag'] as unknown as string,
-      } as WhitelistNode
+      } as RemoteWhitelistEntry
     }
 
     return whitelistEntry
   }
 
-  static applyEntryFormatToArray(whitelistEntries: UserDoc[], format: any): WhitelistNode[]|UserDoc[] {
+  static applyEntryFormatToArray(whitelistEntries: UserDoc[], format: any): RemoteWhitelistEntry[]|UserDoc[] {
     if (format === EntryFormat.SERVER) {
       return whitelistEntries.map(function(whitelistEntry) {
-        return WhitelistFormatHandler.applyEntryFormat(whitelistEntry, format) as WhitelistNode
+        return WhitelistFormatHandler.applyEntryFormat(whitelistEntry, format) as RemoteWhitelistEntry
       })
     }
 

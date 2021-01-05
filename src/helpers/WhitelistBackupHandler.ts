@@ -2,9 +2,13 @@ import fs from 'fs'
 import moment from 'moment'
 import { localWhitelistHandler } from './localWhitelistHandler'
 
+function log(msg: string): void {
+  console.log(`[Backup module] ${msg}`)
+}
+
 async function checkBackupFolder(): Promise<void> {
   if (!fs.existsSync(`${process.env.BACKUP_FOLDER}`)){
-    console.log(`Creating backup folder: ${process.env.BACKUP_FOLDER}.`)
+    log(`Creating backup folder: ${process.env.BACKUP_FOLDER}.`)
     fs.mkdirSync(`${process.env.BACKUP_FOLDER}`)
   }
 }
@@ -32,7 +36,7 @@ function getBackup(backupName: string): string {
 export default class WhitelistBackupHandler {
   static async backupWhiteList(): Promise<void>  {
     await checkBackupFolder()
-    console.log('Generating whitelist backup.')
+    log('Generating whitelist backup.')
 
     const newBackup: string = await exportBackup()
 
@@ -41,17 +45,17 @@ export default class WhitelistBackupHandler {
       const lastBackup: string = getBackup(lastBackupFileName)
 
       if (lastBackup === newBackup) {
-        console.log('The whitelist has not changed.')
+        log('The whitelist has not changed.')
         return
       }
     } catch (error) {
-      console.log(error)
+      log(error)
     }
 
     const backupPath = `${process.env.BACKUP_FOLDER}/${moment().format('YYYY-MM-DD-HH-mm-ss')}-whitelist-backup`
     fs.writeFile(backupPath, newBackup, (err) => {
       if (err) {
-        return console.log(err)
+        return log(`${err}`)
       }
     })
   }
