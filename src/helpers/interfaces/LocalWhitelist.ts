@@ -2,9 +2,8 @@ import { UserDoc } from 'src/types/UserDoc'
 import { RemoteWhitelistEntry } from 'src/types/RemoteWhitelistEntry'
 
 export interface LocalWhitelist {
-  getWhitelist(format?: any): Promise<UserDoc[]|RemoteWhitelistEntry[]>
-  getWhitelistEntry(id: string, format?: any): Promise<UserDoc|RemoteWhitelistEntry|null>
-  getExpiredGameTags(): Promise<string[]>
+  getWhitelist(params?: any): Promise<UserDoc[]|RemoteWhitelistEntry[]>
+  getWhitelistEntry(id: string, params?: any): Promise<UserDoc|RemoteWhitelistEntry|null>
   createWhitelistEntry(body: any): Promise<void>
   updateWhitelistEntry(id: string, body: any): Promise<void>
   removeWhitelistEntry(id: string, body: any): Promise<void>

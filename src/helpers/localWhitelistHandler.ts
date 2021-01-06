@@ -3,33 +3,25 @@ import Whitelist from '../models/Whitelist'
 import { UserDoc } from '../types/UserDoc'
 import { RemoteWhitelistEntry } from '../types/RemoteWhitelistEntry'
 import WhitelistFormatHandler from './WhitelistFormatHandler'
+import WhitelistExpirationHandler from './WhitelistExpirationHandler'
 import TimeAccessHandler from '../helpers/TimeAccessHandler'
 import UUIDHandler from '../helpers/UUIDHandler'
-import moment from 'moment'
 
 class LocalWhitelistHandler implements LocalWhitelist {
-  public async getWhitelist(format?: any): Promise<UserDoc[]|RemoteWhitelistEntry[]> {
-    WhitelistFormatHandler.checkFormat(format)
+  public async getWhitelist(params?: any): Promise<UserDoc[]|RemoteWhitelistEntry[]> {
+    WhitelistFormatHandler.checkFormat(params?.format)
+    WhitelistExpirationHandler.checkShowExpired(params?.showexpired)
 
-    const whitelistEntries: UserDoc[] = await Whitelist.find()
-    return WhitelistFormatHandler.applyEntryFormatToArray(whitelistEntries, format)
+    const findQuery = WhitelistExpirationHandler.getFindQuery(params?.showexpired)
+    const whitelistEntries: UserDoc[] = await Whitelist.find(findQuery)
+    return WhitelistFormatHandler.applyEntryFormatToArray(whitelistEntries, params?.format)
   }
 
-  public async getWhitelistEntry(id: string, format?: any): Promise<UserDoc|RemoteWhitelistEntry|null> {
-    WhitelistFormatHandler.checkFormat(format)
+  public async getWhitelistEntry(id: string, params?: any): Promise<UserDoc|RemoteWhitelistEntry|null> {
+    WhitelistFormatHandler.checkFormat(params?.format)
 
     const whitelistEntry = await Whitelist.findById(id)
-    return whitelistEntry ? WhitelistFormatHandler.applyEntryFormat(whitelistEntry, format) : null
-  }
-
-  public async getExpiredGameTags(): Promise<string[]|any>  {
-    Whitelist.find({ access_expiry_date: { $lt: moment().toDate() } }).exec()
-      .then(whitelistEntries => {
-        const gameTags: string[] = whitelistEntries.map(function(whitelistEntry) {
-          return whitelistEntry['game_tag'] as unknown as string
-        })
-        return gameTags
-      })
+    return whitelistEntry ? WhitelistFormatHandler.applyEntryFormat(whitelistEntry, params?.format) : null
   }
 
   public async createWhitelistEntry(body: any): Promise<void> {
@@ -54,19 +46,19 @@ class LocalWhitelistHandler implements LocalWhitelist {
     await Whitelist.findByIdAndRemove(id, body)
   }
 
-  private updateExpiryDate(whitelistEntry: UserDoc, requestParams: any): void {
-    if (requestParams?.access_time &&
+  private updateExpiryDate(whitelistEntry: UserDoc, newParams: any): void {
+    if (newParams?.access_time &&
       // We have the date on DB. Should we use the one the client sends?
-      requestParams?.access_expiry_date) {
+      newParams?.access_expiry_date) {
       // Is this server-side work?
       whitelistEntry.access_expiry_date = TimeAccessHandler.
-        getUpdatedExpiryDate(whitelistEntry.access_expiry_date, requestParams.access_time)
+        getUpdatedExpiryDate(whitelistEntry.access_expiry_date, newParams.access_time)
     }
   }
 
-  private async updateUUID(whitelistEntry: UserDoc, requestParams: any): Promise<void> {
-    if (requestParams?.game_tag) {
-      whitelistEntry.uuid = await UUIDHandler.getOfflineUUID(requestParams.game_tag)
+  private async updateUUID(whitelistEntry: UserDoc, newParams: any): Promise<void> {
+    if (newParams?.game_tag) {
+      whitelistEntry.uuid = await UUIDHandler.getOfflineUUID(newParams.game_tag)
     }
   }
 }

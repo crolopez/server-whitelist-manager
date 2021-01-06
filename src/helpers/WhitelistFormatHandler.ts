@@ -9,7 +9,7 @@ const EntryFormat = {
 export default class WhitelistFormatHandler {
   static checkFormat(format: any): void{
     if (format !== undefined && format !== EntryFormat.DATABASE && format !== EntryFormat.SERVER) {
-      throw `Invalid request format: ${format}.`
+      throw `Invalid use of 'format' parameter: ${format}.`
     }
   }
 

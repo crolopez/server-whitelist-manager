@@ -8,7 +8,7 @@ const router = express.Router()
 
 router.get('/', async (req, res): Promise<any> => {
   try {
-    const whitelistEntries = await localWhitelistHandler.getWhitelist(req.query.format)
+    const whitelistEntries = await localWhitelistHandler.getWhitelist(req.query)
     return res.json(whitelistEntries)
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
@@ -20,7 +20,7 @@ router.get('/', async (req, res): Promise<any> => {
 
 router.get('/:id', async (req, res): Promise<any> => {
   try {
-    const whitelistEntry = await localWhitelistHandler.getWhitelistEntry(req.params.id, req.query.format)
+    const whitelistEntry = await localWhitelistHandler.getWhitelistEntry(req.params.id, req.query)
     return res.json(whitelistEntry)
   } catch (error) {
     return res.status(ServerMessage.ERROR.INTERNAL_SERVER_ERROR).json({
