@@ -1,4 +1,23 @@
 {
+  "name": "server-whitelist-manager",
+  "version": "0.7.0",
+  "license": "GPL-3.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/crolopez/server-whitelist-manager/"
+  },
+  "author": "Cristóbal López Peñalver",
+  "scripts": {
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "lint": "eslint -c .eslintrc.js src/**/*.ts src/*.ts tests/**/*.ts",
+    "prebuild": "yarn lint",
+    "build": "rimraf ./dist && tsc",
+    "prestart": "yarn build",
+    "start": "node dist/index.js",
+    "test:unit": "jest tests",
+    "test:unit:ci": "jest tests --ci --runInBand"
+  },
   "dependencies": {
     "@types/morgan": "^1.9.2",
     "axios": "^0.21.1",
@@ -12,23 +31,6 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6"
   },
-  "name": "server-whitelist-manager",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "lint": "eslint -c .eslintrc.js src/**/*.ts src/*.ts tests/**/*.ts",
-    "prebuild": "yarn lint",
-    "build": "rimraf ./dist && tsc",
-    "prestart": "yarn build",
-    "start": "node dist/index.js",
-    "test:unit": "jest tests",
-    "test:unit:ci": "jest tests --ci --runInBand"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "@types/compression": "^1.7.0",
     "@types/cron": "^1.7.2",
