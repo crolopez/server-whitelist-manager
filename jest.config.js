@@ -4,7 +4,7 @@ module.exports = {
       'tsConfig': 'tsconfig.json',
     },
   },
-  
+
   testEnvironment: 'node',
 
   moduleFileExtensions: [
@@ -20,5 +20,16 @@ module.exports = {
 
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
+
+  // Coverage
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  coverageThreshold: {
+    global: {
+      branches: 80,
+      functions: 80,
+      lines: 80,
+      statements: -10,
+    },
   },
 }
