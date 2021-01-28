@@ -22,7 +22,7 @@
     "build": "rimraf ./dist && tsc",
     "prestart": "yarn build",
     "start": "node dist/index.js",
-    "test:unit": "jest tests",
+    "test:unit": "jest tests --coverage",
     "test:unit:ci": "jest tests --ci --runInBand"
   },
   "keywords": [],
