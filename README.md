@@ -28,6 +28,10 @@ To configure the module you have edit the `.env` file, replacing the default val
 | MONGO_DB | MongoDB URI | mongodb://localhost/moderator-panel |
 | BACKUP_PERIOD | Whitelist backup period in seconds | 30 |
 | BACKUP_FOLDER | Whitelist backup folder | backups |
+| LOCALTUNNEL_SUBDOMAIN | The assigned localtunnel subdomain to expose your service if it is not in use. Example, if you set this value to *swm1234*, your service will be exposed to https://swm1234.localtunnel.me. | none |
+| ACCEPT_RANDOM_SUBDOMAIN | If the selected subdomain cannot be assigned to you, localtunnel will assign a random subdomain. Choose if accept or not this subdomain. | false |
+
+If you wish, you can expose the service using a method other than localtunnel.me by setting `LOCALTUNNEL_SUBDOMAIN` to *none*.
 
 ## RESTful API
 
