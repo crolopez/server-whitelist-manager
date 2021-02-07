@@ -3,6 +3,19 @@ const MongoErrorMessage = {
   DUPLICATE_KEY: 'Duplicate key',
 } as const
 
+const LocalTunnelMessage = {
+  ERROR: {
+    LOCALTUNNEL_SUBDOMAIN_MISSING: 'LocalTunnel subdomain is not defined.',
+    EXPOSED_PORT_MISSING: 'Exposed port is not defined.',
+    ACCEPT_RANDOM_SUBDOMAIN_MISSING: 'It is necessary to define whether or not to accept LocalTunnel random subdomains.',
+    RANDOM_SUBDOMAIN_NOT_ALLOWED: 'Random subdomains are not allowed. Select an unique subdomain.',
+  },
+  SUCCESS: {
+    UNEXPOSED_SERVICE: 'The service will not be exposed.',
+    CONNECTION: 'LocalTunnel has been connected to ',
+  },
+} as const
+
 const APIMessage = {
   WHITELIST_SUCCESS: {
     ENTRY_SAVED: 'The whitelist entry was saved.',
@@ -24,4 +37,4 @@ const ServerMessage = {
   },
 } as const
 
-export { MongoErrorMessage, APIMessage, ServerMessage }
+export { MongoErrorMessage, LocalTunnelMessage, APIMessage, ServerMessage }
