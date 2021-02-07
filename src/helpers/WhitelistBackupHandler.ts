@@ -55,7 +55,7 @@ export default class WhitelistBackupHandler {
     const backupPath = `${process.env.BACKUP_FOLDER}/${moment().format('YYYY-MM-DD-HH-mm-ss')}-whitelist-backup`
     fs.writeFile(backupPath, newBackup, (err) => {
       if (err) {
-        return log(`${err}`)
+        log(`${err}`)
       }
     })
   }

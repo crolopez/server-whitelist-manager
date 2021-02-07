@@ -16,7 +16,7 @@ jobs:
     - run: yarn test:unit:ci
       env:
         CI: true
-    build:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2

@@ -7,7 +7,6 @@ describe('Class UUIDHandler', () => {
   })
 
   test('#getOfflineUUID', async () => {
-    // data
     const username = 'crolopez'
     const expectedResponse = {
       nick: username,
@@ -15,15 +14,12 @@ describe('Class UUIDHandler', () => {
       offlinesplitteduuid: 'fakeofflinesplitteduuid',
     }
 
-    // mock request
     nock('http://tools.glowingmines.eu')
       .get(`/convertor/nick/${username}`)
       .reply(200, expectedResponse)
 
-    // call the method
     const result = await UUIDHandler.getOfflineUUID(username)
 
-    // assert the result
     expect(result).toBe(expectedResponse.offlinesplitteduuid)
   })
 })
