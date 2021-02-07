@@ -60,7 +60,7 @@ Response:
         "_id":"5feb49d2692ccd5dd7df0fzj",
         "game_tag":"rafa4k",
         "twitch_user":"rafa4k",
-        "access_type":"Access by subscription",
+        "note":"Access by subscription",
         "access_expiry_date":"2021-03-29T14:22:58.677Z",
         "uuid":"a39285c9-3044-3ab9-b22a-399624e81601",
         "created_at":"2020-12-29T15:22:59.054Z",
@@ -71,7 +71,7 @@ Response:
         "_id":"49su49d2692ccd5dd7df3891",
         "game_tag":"AvocadoMaster",
         "twitch_user":"aldea_jete",
-        "access_type":"Access by subscription",
+        "note":"Access by subscription",
         "access_expiry_date":"2021-03-30T14:22:58.677Z",
         "uuid":"32158fc9-3044-3ab9-b22a-399624e81179",
         "created_at":"2020-12-29T15:22:59.054Z",
@@ -96,7 +96,7 @@ Response:
     "_id":"49su49d2692ccd5dd7df3891",
     "game_tag":"AvocadoMaster",
     "twitch_user":"aldea_jete",
-    "access_type":"Access by subscription",
+    "note":"Access by subscription",
     "access_expiry_date":"2021-03-30T14:22:58.677Z",
     "uuid":"32158fc9-3044-3ab9-b22a-399624e81179",
     "created_at":"2020-12-29T15:22:59.054Z",
@@ -113,7 +113,7 @@ Request:
 
 ``` bash
 curl -i -H 'Content-Type: application/json' http://localhost:4000/api/whitelist/ \
--d '{"game_tag":"Bobby", "twitch_user":"Tables", "access_type":"Fortnight", "access_time":"15d"}'
+-d '{"game_tag":"Bobby", "twitch_user":"Tables", "note":"Fortnight", "access_time":"15d"}'
 ```
 
 
@@ -151,7 +151,7 @@ Request:
 
 ``` bash
 curl -X PUT -i -H 'Content-Type: application/json' http://localhost:4000/api/whitelist/5feb49d2609ccd5dd7df0f25 \
--d '{"_id":"5feb49d2609ccd5dd7df0f25", "access_type": "Access by subscription", "access_time": "1M" }'
+-d '{"_id":"5feb49d2609ccd5dd7df0f25", "note": "Access by subscription", "access_time": "1M" }'
 ```
 
 Response:

@@ -4,8 +4,7 @@ import { Schema } from 'mongoose'
 const WhitelistSchema = new Schema({
   game_tag: { type: String, unique: true },
   twitch_user: { type: String, unique: true },
-  access_type: String,
-  premium_account: Boolean,
+  note: String,
   uuid: String,
   access_expiry_date: Date,
 }, {
