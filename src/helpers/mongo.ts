@@ -11,6 +11,7 @@ async function connectMongo (): Promise<void> {
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
+        useCreateIndex: true,
       }
     )
     console.log(`mongodb connected (${process.env.MONGO_DB})`)
