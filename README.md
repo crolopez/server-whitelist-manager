@@ -59,7 +59,7 @@ Response:
     {
         "_id":"5feb49d2692ccd5dd7df0fzj",
         "game_tag":"rafa4k",
-        "twitch_user":"rafa4k",
+        "discord_user":"rafa4k#87412",
         "note":"Access by subscription",
         "access_expiry_date":"2021-03-29T14:22:58.677Z",
         "uuid":"a39285c9-3044-3ab9-b22a-399624e81601",
@@ -113,7 +113,7 @@ Request:
 
 ``` bash
 curl -i -H 'Content-Type: application/json' http://localhost:4000/api/whitelist/ \
--d '{"game_tag":"Bobby", "twitch_user":"Tables", "note":"Fortnight", "access_time":"15d"}'
+-d '{"game_tag":"Bobby", "twitch_user":"Tables", "discord_user":"Tables#4238", "note":"Fortnight", "access_time":"15d"}'
 ```
 
 
