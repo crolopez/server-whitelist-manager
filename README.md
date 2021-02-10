@@ -9,6 +9,13 @@ When the server is deployed, you can start managing your server whitelist throug
 
 The module is not able to install the whitelist on the Minecraft server by itself as it only facilitates its management. To synchronize the whitelist it is necessary a plugin on the Minecraft server side (like [Whitelist Synchronizer](https://github.com/crolopez/whitelist-synchronizer/)) that requests and applies it, although it could also be done manually.
 
+## Prerequisites
+
+The following packages need to be installed in order to deploy and use the service:
+- [**Node.js**](https://nodejs.org/)
+- [**Yarn**](https://classic.yarnpkg.com/)
+- [**MongoDB**](https://www.mongodb.com/)
+
 ## How to deploy
 
 Just execute:
