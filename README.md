@@ -22,6 +22,7 @@ Just execute:
 
 ``` bash
 yarn install # First time only
+yarn build
 yarn start
 ```
 
