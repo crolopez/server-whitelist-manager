@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: 'Checkout Github Action'
-      uses: actions/checkout@cosmos-db-compatible
+      uses: actions/checkout@v2
 
     - name: Use Node.js 12.x
       uses: actions/setup-node@v1
